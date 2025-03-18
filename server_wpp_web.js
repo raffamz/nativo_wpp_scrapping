@@ -1,6 +1,6 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const axios = require('axios');
+const bodyParser = require("body-parser");
 const openai = require('./openai');
 
 const { init } = require('./scraping');
@@ -127,3 +127,15 @@ async function processMessage(text, userId) {
     }
 
 }
+
+const express = require("express");
+const app = express();
+const PORT = 5900;
+
+// Middleware para interpretar JSON
+app.use(bodyParser.json());
+
+// Iniciar servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});

@@ -53,17 +53,7 @@ client.initialize();
 
 
 async function processMessage(text, userId) {
-    // Inicializa o histórico do usuário, se não existir
-    // Inicializa o histórico do usuário, se não existir
-    // let getItem=getItemByKey('history_message', userId);
-    // conversationHistory[userId]=getItem.conversationHistory;
-    //console.log("!conversationHistory[userId]::::: ", !conversationHistory[userId]);
-    //if (!getItem.userId) {
-    //    conversationHistory[userId] = [];
-    //}
-
-    // Adiciona a mensagem do usuário ao histórico
-    //conversationHistory[userId].push({ role: "user", content: text });
+    
     if (!conversationHistory[userId]) {
         conversationHistory[userId] = [];
     }
@@ -97,27 +87,23 @@ async function processMessage(text, userId) {
         console.log("Resposta IA:: ", response.choices[0].message.content);
         let reply = response.choices[0].message.content;
 
-        // Remove qualquer <think>...</think> antes de responder
         reply = reply.replace(/```json|```/g, "").trim();
         reply = reply.match(/{.*}/s);
-        console.log("Resposta JSON tratado1 :: ", reply);
         reply = JSON.parse(reply);
-
-        console.log("Resposta JSON tratado2 :: ", reply);
-
-        conversationHistory[userId].push({ role: "system", content: reply.messageResponse });
+        console.log("Resposta JSON :: ", reply);
+        try {
+            conversationHistory[userId].push({ role: "assistant", content: reply.messageResponse });
+        } catch (error) {
+            return  await processMessage(`Vc deve SEMPRE responder na estrutura JSON conforme instruções. Minha resposta a sua pergunta foi: ${text}`, userId);
+        }
         var data = { userId }
         data.conversationHistory = conversationHistory[userId]
-        //  await createUser(data);
-        // Adiciona a resposta da IA ao histórico
         conversationHistory[userId].push({ role: "assistant", content: reply.messageResponse });
-        console.log(`Resposta gerada para ${userId}: ${reply}`);
-        console.log(`DONE: ${reply.requests.done}`);
-        if (reply.requests.done) {
+
+        if (reply.done) {
             reply.response = {};
             reply.response.message = await init(reply.requests);
-            reply.response.service = reply.requests.service;
-            reply.messageResponse = `Dados retornados: ${reply.response.message} para o serviço ${reply.response.service}`;
+            reply.messageResponse = `Dados retornados: ${reply.response.message} para o serviço ${reply.service}`;
         }
 
         console.log(`⏳ Tempo de resposta: ${elapsedTime} ms`);

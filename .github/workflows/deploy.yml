@@ -1,0 +1,30 @@
+name: Deploy Node.js no Raspberry
+
+on:
+  push:
+    branches:
+      - main  # ou a branch que você usar
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # importante: indica que será executado no Raspberry
+    steps:
+      - name: Atualizar projeto local
+        run: |
+          cd /home/pi/projetos/meu-projeto
+          git pull origin main
+
+      - name: Instalar dependências
+        run: |
+          cd /home/pi/projetos/meu-projeto
+          npm install
+
+      - name: Rodar testes (opcional)
+        run: |
+          cd /home/pi/projetos/meu-projeto
+          npm test
+
+      - name: Reiniciar app com PM2
+        run: |
+          cd /home/pi/projetos/meu-projeto
+          pm2 restart app  # substitua "app" pelo nome que você registrou no pm2

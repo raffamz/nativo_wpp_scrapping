@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 async function init() {
-    const browser = await puppeteer.launch({ headless: true }); // Abre o navegador visível para depuração
+    const browser = await puppeteer.launch({ executablePath:'/usr/bin/chromium-browser', headless: true }); // Abre o navegador visível para depuração
     const page = await browser.newPage();
 
     await page.goto('https://transito.mg.gov.br/infracoes/multa/consultar-pontuacao-cnh'); // Substitua pela URL do site desejado
@@ -20,7 +20,7 @@ async function init() {
    
 
     // Aguarde um tempo para processar os resultados
-    //await page.waitForTimeout(5000);
+    await new Promise(resolve=> setTimeout(resolve, 2000));
 
     // Capturando dados da página (exemplo de extração)
     const resultado = await page.evaluate(() => {

@@ -11,20 +11,15 @@ jobs:
     steps:
       - name: Atualizar projeto local
         run: |
-          cd /home/pi/projetos/meu-projeto
+          cd ~/Documentos/wsp/nativo_wpp_scrapping
           git pull origin main
 
       - name: Instalar dependências
         run: |
-          cd /home/pi/projetos/meu-projeto
+          cd ~/Documentos/wsp/nativo_wpp_scrapping
           npm install
-
-      - name: Rodar testes (opcional)
-        run: |
-          cd /home/pi/projetos/meu-projeto
-          npm test
 
       - name: Reiniciar app com PM2
         run: |
-          cd /home/pi/projetos/meu-projeto
-          pm2 restart app  # substitua "app" pelo nome que você registrou no pm2
+          cd ~/Documentos/wsp/nativo_wpp_scrapping
+          ./start.sh

@@ -19,7 +19,7 @@ jobs:
           cd ~/Documentos/wsp/nativo_wpp_scrapping
           npm install
 
-      - name: Reiniciar app com PM2
+      - name: Reiniciar app com Nodejs
         run: |
           cd ~/Documentos/wsp/nativo_wpp_scrapping
           ./start.sh

@@ -34,5 +34,4 @@ async function init(data) {
     return resultado;
 };
 
-
 module.exports = {init};

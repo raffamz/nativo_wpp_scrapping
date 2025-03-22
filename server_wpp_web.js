@@ -5,7 +5,6 @@ const { init } = require('./scraping');
 require("dotenv").config();
 
 
-
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const WHATSAPP_API_URL = process.env.WHATSAPP_API_URL;
@@ -108,5 +107,4 @@ async function processMessage(text, userId) {
     } catch (error) {
         console.error('Erro:', error);
     }
-
 }

@@ -20,6 +20,4 @@ jobs:
           npm install
 
       - name: Reiniciar app com Nodejs
-        run: |
-          cd ~/Documentos/wsp/nativo_wpp_scrapping
-          ./start.sh
+        run: sudo systemctl restart wppscrap.service

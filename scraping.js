@@ -1,15 +1,15 @@
 const puppeteer = require('puppeteer');
 
-async function init() {
+async function init(data) {
     const browser = await puppeteer.launch({ executablePath:'/usr/bin/chromium-browser', headless: true }); // Abre o navegador visível para depuração
     const page = await browser.newPage();
 
     await page.goto('https://transito.mg.gov.br/infracoes/multa/consultar-pontuacao-cnh'); // Substitua pela URL do site desejado
 
     // Preenchendo os campos do formulário
-    await page.type('#cpf', '05575542769'); // Substitua pelo seletor correto do CPF
-    await page.type('#datanascimento', '01/01/1984'); // Substitua pelo seletor correto da data de nascimento
-    await page.type('#dataprimeirahabilitacao', '17/09/2002'); // Substitua pelo seletor correto da data de emissão
+    await page.type('#cpf', data.cpf); // Substitua pelo seletor correto do CPF
+    await page.type('#datanascimento', data.dataNascimento); // Substitua pelo seletor correto da data de nascimento
+    await page.type('#dataprimeirahabilitacao', data.dataEmissao); // Substitua pelo seletor correto da data de emissão
 
     const fullXPath = '/html/body/main/div/div[2]/div[1]/div/div/div[4]/div/form/button'; // Exemplo de Full XPath
 

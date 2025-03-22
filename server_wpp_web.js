@@ -46,6 +46,7 @@ client.on('message', async (message) => {
 });
 
 // Inicializa o cliente
+console.log('Inicializando o cliente!');
 client.initialize();
 
 async function processMessage(text, userId) {
